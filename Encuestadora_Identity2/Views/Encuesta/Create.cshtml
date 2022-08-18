@@ -1,0 +1,69 @@
+﻿@model Encuestadora_Identity2.Models.Encuesta
+
+@{
+    ViewData["Title"] = "Crear";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Encuesta de @User.Identity.Name</h4>
+<hr />
+<p>
+    <button title="Mis Encuestas" type="button" onclick="window.open('/Encuesta?userName=@User.Identity.Name', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+    @*<button type="button" onclick="window.open('/Encuesta?userName=@User.Identity.Name', '_self');" class="btn btn-secondary">Mis Encuestas</button>*@
+</p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="tituloEncuesta" class="control-label"></label>
+                <input title="Ingrese un titulo para la encuesta" asp-for="tituloEncuesta" class="form-control" />
+                <span asp-validation-for="tituloEncuesta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="datetimeCreacionEncuesta" class="control-label"></label>
+                <b>@Html.DisplayFor(model => model.datetimeCreacionEncuesta)</b>
+                <input type="hidden" asp-for="datetimeCreacionEncuesta" class="form-control" />
+                <span asp-validation-for="datetimeCreacionEncuesta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="datetimeVencimientoEncuesta" class="control-label"></label>
+                <b>@Html.DisplayFor(model => model.datetimeVencimientoEncuesta)</b>
+                <input type="hidden" asp-for="datetimeVencimientoEncuesta" class="form-control" />
+                <span asp-validation-for="datetimeVencimientoEncuesta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="puntosEncuesta" class="control-label"></label>
+                <b>@ViewBag.puntosEncuesta</b>
+                <input type="hidden" asp-for="puntosEncuesta" class="form-control" value="@ViewBag.puntosEncuesta" />
+                <span asp-validation-for="puntosEncuesta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="ApplicationUserId" class="control-label"></label>
+                    <b>@Html.DisplayFor(model => model.ApplicationUserId)</b>*@
+                <input type="hidden" asp-for="ApplicationUserId" class="form-control" />
+                <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear Encuesta" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<p hidden id="mensaje" class="btn btn-warning text-center col-4 active"></p>
+@*<div>
+        <a class="btn-link" href="/Encuesta?userName=@User.Identity.Name">Volver a Mis Encuestas</a>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@if (@ViewBag.puntosEncuesta == PuntosEncuesta.ENCUESTA_GRATIS)
+{
+    <script>
+        var mensaje = document.getElementById('mensaje');
+        mensaje.removeAttribute("hidden");
+        mensaje.innerHTML = "ATENCION: Puede subir su membresia para mejorar los resultados de su encuesta!"
+    </script>
+
+}

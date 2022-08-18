@@ -1,0 +1,24 @@
+﻿@model Encuestadora_Identity2.Models.Pregunta
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>@Html.DisplayFor(model => model.tituloPregunta)</h4>
+<hr />
+<p>
+    <button title="Mis Preguntas" type="button" onclick="window.open('/Pregunta?EncuestaId=@Model.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+</p>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            <b>Opciones</b>
+        </dt>
+        <dt class="col-sm-2">
+            @*AGREGAR preguntas.count*@
+            @Model.opciones.Count
+            <button title="Ver Opciones" type="button" onclick="window.open('/OpcionPregunta?PreguntaId=@Model.PreguntaId', '_self');" class="btn btn-light"><img src="/img/icono_ver.svg" class="img-fluid" alt="Ver" /></button>
+        </dt>
+    </dl>
+</div>

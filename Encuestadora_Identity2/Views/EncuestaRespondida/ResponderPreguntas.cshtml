@@ -1,0 +1,78 @@
+﻿@model Encuestadora_Identity2.Models.EncuestaRespondida
+
+@{
+    ViewData["Title"] = "Responder Pregunta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Seleccionar Opcion </h3>
+<h1>@Html.DisplayFor(model => model.pregunta.tituloPregunta)</h1>
+<hr />
+@*<p>
+        <button title="Encuestas Disponibles" type="button" onclick="window.open('/Encuesta/Disponible', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Crear" /></button>
+    </p>*@
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @*<label asp-for="datetimeRespuestaEncuesta" class="control-label"></label>
+                    <b>@Html.DisplayFor(model => model.datetimeRespuestaEncuesta)</b>*@
+                <input type="hidden" asp-for="datetimeRespuestaEncuesta" class="form-control" />
+                <span asp-validation-for="datetimeRespuestaEncuesta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="encuesta" class="control-label"></label>*@
+                @*<b>@Html.DisplayFor(model => model.encuesta.tituloEncuesta)</b>*@
+                <input type="hidden" asp-for="encuesta" class="form-control" value="@Model.encuesta" />
+                <span asp-validation-for="encuesta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="EncuestaId" class="control-label"></label>
+                    <b>@Html.DisplayFor(model => model.EncuestaId)</b>*@
+                <input type="hidden" asp-for="EncuestaId" class="form-control" value="@Model.EncuestaId" />
+                <span asp-validation-for="EncuestaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="pregunta" class="control-label"></label>
+                    <b>@Html.DisplayFor(model => model.pregunta.tituloPregunta)</b>*@
+                <input type="hidden" asp-for="pregunta" class="form-control" value="@Model.pregunta" />
+                <span asp-validation-for="pregunta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="PreguntaId" class="control-label"></label>
+                    <b>@Html.DisplayFor(model => model.PreguntaId)</b>*@
+                <input type="hidden" asp-for="PreguntaId" class="form-control" value="@Model.PreguntaId" />
+                <span asp-validation-for="PreguntaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OpcionPreguntaId" class="control-label">Opciones</label>
+                <select asp-for="OpcionPreguntaId" class="form-control" asp-items="@ViewBag.OpcionPreguntaId">
+                    <option value="">Seleccionar</option>
+                </select>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="ApplicationUser" class="control-label"></label>
+                    <b>@Html.DisplayFor(model => model.ApplicationUser.UserName)</b>*@
+                <input type="hidden" asp-for="ApplicationUser" class="form-control" value="@Model.ApplicationUser" />
+                <span asp-validation-for="ApplicationUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="ApplicationUserId" class="control-label"></label>
+                    <b>@Html.DisplayFor(model => model.ApplicationUserId)</b>*@
+                <input type="hidden" asp-for="ApplicationUserId" class="form-control" value="@Model.ApplicationUserId" />
+                <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Responder" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

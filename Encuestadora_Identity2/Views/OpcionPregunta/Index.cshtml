@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Encuestadora_Identity2.Models.OpcionPregunta>
+
+@{
+    ViewData["Title"] = "Opciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-start align-items-center">
+        <div class="col-6 col-sm-6">
+            <h1>Mis Opciones</h1>
+        </div>
+        @*<div hidden id="mensaje" class="btn btn-danger text-center active"></div>*@
+    </div>
+</div>
+
+<p>
+    <button title="Mis Preguntas" type="button" onclick="window.open('/Pregunta?EncuestaId=@ViewBag.Pregunta.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+    <button title="Crear Opcion" type="button" onclick="window.open('/OpcionPregunta/Create?PreguntaId=@ViewBag.Pregunta.PreguntaId', '_self');" class="btn btn-light"><img src="/img/icono_crear.svg" class="img-fluid" alt="Crear" /></button>
+</p>
+<div class="container-fluid">
+    <section class="row justify-content-start align-items-center">
+        <table class="table-responsive">
+            <thead class="btn btn-success col-12 col-sm-12">
+                <tr class="col-12 col-sm-12" style="display:inline-table">
+                    <th class="col-4 col-sm-4 text-center">
+                        @Html.DisplayNameFor(model => model.tituloOpcion)
+                    </th>
+                    <th class="col-4 col-sm-4 text-center">
+                        Pregunta
+                    </th>
+                    <th class="col-4 col-sm-4 text-center"></th>
+                </tr>
+            </thead>
+            <tbody class="btn bg-light col-12 col-sm-12">
+                @foreach (var item in Model)
+                {
+                    <tr class="col-12 col-sm-12" style="display:inline-table">
+                        <td class="col-4 col-sm-4 text-center">
+                            @Html.DisplayFor(modelItem => item.tituloOpcion)
+                        </td>
+                        <td class="col-4 col-sm-4 text-center">
+                            @ViewBag.Pregunta.tituloPregunta
+                        </td>
+                        <td style="text-align-last: end;">
+                            <button title="Editar Opcion" type="button" onclick="window.open('/OpcionPregunta/Edit?id=@item.OpcionPreguntaId&PreguntaId=@item.PreguntaId', '_self');" class="btn btn-light"><img src="/img/icono_editar.svg" class="img-fluid" alt="Editar" /></button>
+                            <button title="Borrar Pregunta" type="button" onclick="window.open('/OpcionPregunta/Delete/@item.OpcionPreguntaId', '_self');" class="btn btn-light"><img src="/img/icono_borrar.svg" class="img-fluid" alt="Borrar" /></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>

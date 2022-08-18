@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Identity
+@*AGREGADO*@
+@using Encuestadora_Identity2.Models;
+@using Encuestadora_Identity2.Data;
+@*MODIFICADO*@
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDbContext context
+@{
+    var _context = context;
+    var usuario = "Usuario";
+    var cliente = "Cliente";
+
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var appUser = _context.usuarios.Single(u => u.UserName == @User.Identity.Name);
+        <li class="nav-item">
+            <a class="nav-link text-success" asp-area="Identity" asp-page="/Account/Manage/Index" title="Perfil">Hola @appUser.Nombre!</a>
+        </li>
+        if (appUser.CustomTag == usuario)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-success font-weight-bold" href="/Encuesta/Disponible?userName=@User.Identity.Name" title="Responder">Responder Encuestas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success font-weight-bold" href="#" onclick="canjear();" title="Responder">Puntos (@appUser.puntosAcumulados)</a>
+            </li>
+        }
+        else if (appUser.CustomTag == cliente)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-success font-weight-bold" href="/Encuesta?userName=@User.Identity.Name" title="Mis Encuestas">Mis Encuestas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success font-weight-bold" href="#" onclick="cobrar();" title="Responder">Mis Pagos</a>
+            </li>
+        }
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-success">Salir</button>
+            </form>
+        </li>
+
+
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-success font-weight-bold" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-success font-weight-bold" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+        </li>
+    }
+    @_context.SaveChanges();
+</ul>

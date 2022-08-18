@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Encuestadora_Identity2.Models.Encuesta>
+
+@{
+    ViewData["Title"] = "Encuestas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var darAvisoPregunta = false;
+    var darAvisoOpcion = false;
+}
+<div class="container-fluid">
+    <div class="row justify-content-start align-items-center">
+        <div class="col-6 col-sm-6">
+            <h1>Mis Encuestas</h1>
+        </div>
+        <div hidden id="mensaje" class="btn btn-danger text-center active"></div>
+    </div>
+</div>
+
+<p>
+    <button title="Ir al Perfil" type="button" onclick="window.open('/Identity/Account/Manage', '_self');" class="btn btn-light"><img src="/img/icono_perfil.svg" class="img-fluid" alt="Perfil" /></button>
+    <button title="Crear Encuesta" type="button" onclick="window.open('/Encuesta/Create?userName=@User.Identity.Name', '_self');" class="btn btn-light"><img src="/img/icono_crear.svg" class="img-fluid" alt="Crear" /></button>
+</p>
+<div class="container-fluid">
+    <section class="row justify-content-start align-items-center">
+        <table class="table-responsive">
+            <thead class="btn btn-success col-12 col-sm-12">
+                <tr class="col-12 col-sm-12" style="display:inline-table">
+                    <th class="col-3 col-sm-3 text-center">
+                        Encuesta
+                    </th>
+                    <th class="col-2 col-sm-2 text-center">
+                        Publicacion
+                    </th>
+                    <th class="col-2 col-sm-2 text-center">
+                        Vencimiento
+                    </th>
+                    <th class="col-2 col-sm-2 text-center">
+                        Preguntas
+                    </th>
+                    <th class="col-3 col-sm-3 text-center">
+                        Tipo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="btn bg-light col-12 col-sm-12">
+                @foreach (var item in Model)
+                {
+                    <tr class="col-12 col-sm-12" style="display:inline-table">
+                        <td class="col-3 col-sm-3 text-center">
+                            <b>@Html.DisplayFor(modelItem => item.tituloEncuesta)</b>
+                        </td>
+                        <td class="col-2 col-sm-2 text-center">
+                            @Html.DisplayFor(modelItem => item.datetimeCreacionEncuesta)
+                        </td>
+                        <td class="col-2 col-sm-2 text-center">
+                            @Html.DisplayFor(modelItem => item.datetimeVencimientoEncuesta)
+                        </td>
+                        <td class="col-2 col-sm-2 text-center">
+                            @*AGREGAR preguntas.count*@
+
+                            @if (@item.preguntas.Count == 0)
+                            {
+                                darAvisoPregunta = true;
+                                <div class="mensaje2">@item.preguntas.Count</div>
+                            }
+                            else
+                            {
+                                <div class="mensaje3">@item.preguntas.Count</div>
+                                foreach (var item2 in item.preguntas)
+                                {
+                                    if (item2.opciones.Count == 0)
+                                    {
+                                        darAvisoOpcion = true;
+                                    }
+                                }
+                            }
+                            <button title="Ver Preguntas" type="button" onclick="window.open('/Pregunta?EncuestaId=@item.EncuestaId', '_self');" class="btn btn-sm active"><img src="/img/icono_ver.svg" class="small" alt="Ver" /></button>
+                        </td>
+                        @if (item.puntosEncuesta == PuntosEncuesta.ENCUESTA_ORO)
+                        {
+                            <td class="col-3 col-sm-3">
+                                <p class="btn btn-warning btn-sm text-black-50 font-weight-bold active col-2 col-sm-2" style="display:inline"> ORO  </p>
+                            </td>
+                        }
+                        else if (item.puntosEncuesta == PuntosEncuesta.ENCUESTA_PLATA)
+                        {
+                            <td class="col-3 col-sm-3">
+                                <p class="btn btn-secondary active btn-sm col-2 col-sm-2" style="display:inline">PLATA </p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="col-3 col-sm-3">
+                                <p class="btn active btn-sm col-2 col-sm-2" style="display:inline">GRATIS</p>
+                            </td>
+                        }
+                    </tr>
+                    <tr class="col-12 col-sm-12" style="display:inline-table">
+                        @if (item.datetimeVencimientoEncuesta < DateTime.Now)
+                        {
+
+                            <td style="text-align-last: start;">
+                                <button title="Resultado" type="button" onclick="window.open('/EncuestaRespondida/Resultado?SearchString=@item.tituloEncuesta&userName=@User.Identity.Name', '_self');" class="btn btn-light"><img src="/img/icono_resultado.svg" class="img-fluid" alt="Resultado" /></button>
+                            </td>
+
+                        }
+                        else
+                        {
+
+                            <td style="text-align-last: start;">
+                                <button title="Ver Encuesta" type="button" onclick="window.open('/Encuesta/Details/@item.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_ver.svg" class="img-fluid" alt="Ver" /></button>
+                                <button title="Editar Encuesta" type="button" onclick="window.open('/Encuesta/Edit?id=@item.EncuestaId&userName=@User.Identity.Name', '_self');" class="btn btn-light"><img src="/img/icono_editar.svg" class="img-fluid" alt="Editar" /></button>
+                                <button title="Borrar Encuesta" type="button" onclick="window.open('/Encuesta/Delete/@item.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_borrar.svg" class="img-fluid" alt="Borrar" /></button>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
+@*<p hidden id="mensaje" class="btn btn-danger text-center col-4 active"></p>*@
+
+@if (darAvisoPregunta || darAvisoOpcion)
+{
+    <script>
+        var mensaje = document.getElementById('mensaje');
+        mensaje.removeAttribute("hidden");
+        mensaje.innerHTML = "ERROR: Tiene encuestas con errores y no seran publicadas!"
+        const mensajes2 = document.getElementsByClassName("mensaje2");
+        for (let i = 0; i < mensajes2.length; i++) {
+            mensajes2[i].style.cssText = "font-size:20px;color:red;";
+        }
+    </script>
+
+}
+

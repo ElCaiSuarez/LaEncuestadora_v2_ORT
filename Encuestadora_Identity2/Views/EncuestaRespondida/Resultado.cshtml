@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Encuestadora_Identity2.Models.EncuestaRespondida>
+
+@{
+    ViewData["Title"] = "Resultado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Resultado</h3>
+
+<p>
+    <button title="Mis Encuestas" type="button" onclick="window.open('/Encuesta?userName=@User.Identity.Name', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+</p>
+<div id="container"></div>
+<div class="container-fluid">
+    <section class="row justify-content-start align-items-center">
+        <table class="table-responsive">
+            <thead class="btn btn-success col-12 col-sm-12">
+                <tr class="col-12 col-sm-12" style="display:inline-table">
+                    <th class="col-4 col-sm-4 text-center">
+                        @Html.DisplayNameFor(model => model.datetimeRespuestaEncuesta)
+                    </th>
+                    <th class="col-4 col-sm-4 text-center">
+                        @Html.DisplayNameFor(model => model.pregunta)
+                    </th>
+                    <th class="col-4 col-sm-4 text-center">
+                        @Html.DisplayNameFor(model => model.opcionPregunta)
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="btn bg-light col-12 col-sm-12">
+                @foreach (var item in Model)
+                {
+                    <tr class="col-12 col-sm-12" style="display:inline-table">
+                        <td class="col-4 col-sm-4 text-center">
+                            @Html.DisplayFor(modelItem => item.datetimeRespuestaEncuesta)
+                        </td>
+                        <td class="col-4 col-sm-4 text-center">
+                            @Html.DisplayFor(modelItem => item.pregunta.tituloPregunta)
+                        </td>
+                        <td class="col-4 col-sm-4 text-center">
+                            @Html.DisplayFor(modelItem => item.opcionPregunta.tituloOpcion)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
+
+
+
+        @section Scripts{
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/export-data.js"></script>
+            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script>
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Resultado de @ViewData["CurrentFilter"]'
+            },
+            xAxis: {
+                categories: ['Pregunta Encuesta Vencida PLATA 1', 'Pregunta Encuesta Vencida PLATA 2', 'Pregunta Encuesta Vencida PLATA 3']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad de respuestas por Opcion'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: ( // theme
+                            Highcharts.defaultOptions.title.style &&
+                            Highcharts.defaultOptions.title.style.color
+                        ) || 'gray',
+                        textOutline: 'none'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            series: [{
+                name: 'Opcion 1',
+                data: [1, 0, 0]
+            }, {
+                name: 'Opcion 2',
+                data: [2, 1, 0]
+            }, {
+                name: 'Opcion 3',
+                data: [0, 2, 1]
+            }, {
+                name: 'Opcion 4',
+                data: [0, 0, 2]
+            }]
+        });
+
+            </script>
+        }
+
+
+
+

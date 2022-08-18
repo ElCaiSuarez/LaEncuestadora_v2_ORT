@@ -1,0 +1,31 @@
+﻿@model Encuestadora_Identity2.Models.OpcionPregunta
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.tituloOpcion)</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.tituloOpcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.tituloOpcion)
+        </dd>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pregunta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pregunta.tituloPregunta)
+        </dd>*@
+    </dl>
+</div>
+<div>
+    <a class="btn-link" href="/OpcionPregunta/Edit?id=@Model.OpcionPreguntaId&PreguntaId=@Model.PreguntaId">Editar</a> |
+    <a class="btn-link" href="/OpcionPregunta?PreguntaId=@Model.PreguntaId">Volver a Mis Opciones</a>
+</div>

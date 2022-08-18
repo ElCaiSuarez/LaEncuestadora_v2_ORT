@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Encuestadora_Identity2.Models.Pregunta>
+
+@{
+    ViewData["Title"] = "Preguntas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var darAviso = false;
+}
+<div class="container-fluid">
+    <div class="row justify-content-start align-items-center">
+        <div class="col-6 col-sm-6">
+            <h1>Mis Preguntas</h1>
+        </div>
+        <div hidden id="mensaje" class="btn btn-danger text-center active"></div>
+    </div>
+</div>
+
+<p>
+    <button title="Mis Encuestas" type="button" onclick="window.open('/Encuesta?userName=@User.Identity.Name', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+    <button title="Crear Pregunta" type="button" onclick="window.open('/Pregunta/Create?EncuestaId=@ViewBag.Encuesta.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_crear.svg" class="img-fluid" alt="Crear" /></button>
+</p>
+<div class="container-fluid">
+    <section class="row justify-content-start align-items-center">
+        <table class="table-responsive">
+            <thead class="btn btn-success col-12 col-sm-12">
+                <tr class="col-12 col-sm-12" style="display:inline-table">
+                    <th class="col-4 col-sm-4 text-center">
+                        Pregunta
+                    </th>
+                    <th class="col-2 col-sm-2 text-center">
+                        Opciones
+                    </th>
+                    <th class="col-3 col-sm-3 text-center">
+                        Encuesta
+                    </th>
+                    <th class="col-3 col-sm-3 text-center">
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="btn bg-light col-12 col-sm-12">
+                @foreach (var item in Model)
+                {
+                    <tr class="col-12 col-sm-12" style="display:inline-table">
+                        <td class="col-4 col-sm-4 text-center">
+                            @Html.DisplayFor(modelItem => item.tituloPregunta)
+                        </td>
+                        <td class="col-2 col-sm-2 text-center">
+                            @*AGREGAR opciones.count*@
+                            @if (@item.opciones.Count == 0)
+                            {
+                                darAviso = true;
+                                <div class="mensaje2 btn btn-sm active">@item.opciones.Count</div>
+                            }
+                            else
+                            {
+                                @item.opciones.Count
+                            }
+                            <button title="Ver Opciones" type="button" onclick="window.open('/OpcionPregunta?PreguntaId=@item.PreguntaId', '_self');" class="btn btn-light btn-sm"><img src="/img/icono_ver.svg" class="img-fluid" alt="Ver" /></button>
+                        </td>
+                        <th class="col-3 col-sm-3 text-center">
+                            @ViewBag.Encuesta.tituloEncuesta
+                        </th>
+                        <td style="text-align-last: end;">
+                            <button title="Editar Pregunta" type="button" onclick="window.open('/Pregunta/Edit?id=@item.PreguntaId&EncuestaId=@item.EncuestaId', '_self');" class="btn btn-light btn-sm"><img src="/img/icono_editar.svg" class="img-fluid" alt="Editar" /></button>
+                            <button title="Borrar Pregunta" type="button" onclick="window.open('/Pregunta/Delete/@item.PreguntaId', '_self');" class="btn btn-light btn-sm"><img src="/img/icono_borrar.svg" class="img-fluid" alt="Borrar" /></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
+@if (darAviso)
+{
+    <script>
+        var mensaje = document.getElementById('mensaje');
+        mensaje.removeAttribute("hidden");
+        mensaje.innerHTML = "ERROR: Tiene preguntas sin opciones!"
+        const mensajes2 = document.getElementsByClassName("mensaje2");
+        for (let i = 0; i < mensajes2.length; i++) {
+            mensajes2[i].style.cssText = "font-size:20px;color:red;";
+        }
+    </script>
+
+}

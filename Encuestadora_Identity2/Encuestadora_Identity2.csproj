@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-Encuestadora_Identity2-1DB66ACD-3B8E-4449-9EE5-6C93F048E471</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20220708034632_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708034632_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708040433_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708040433_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708154210_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708154210_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708154617_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708154617_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708154746_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708154746_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708172228_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708172228_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708204216_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708204216_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708204600_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708204600_CustomUserData1.Designer.cs" />
+    <Compile Remove="Migrations\20220708205327_CustomUserData1.cs" />
+    <Compile Remove="Migrations\20220708205327_CustomUserData1.Designer.cs" />
+    <Compile Remove="Models\Cliente.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.25">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://gitpod.io/schemas/gitpod-schema.json" /></VisualStudio></ProjectExtensions>
+
+</Project>

@@ -1,0 +1,64 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Registrarse";
+    //AGREGADO
+    var usuario = "Usuario";
+    var cliente = "Cliente";
+
+}
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4 id="mensajeCustomTag">Crear una cuenta.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @*MODIFICADO*@
+            <div class="form-group">
+                <label asp-for="Input.CustomTag">Tipo de registro</label>
+                <select asp-for="Input.CustomTag" class="form-control" id="CustomTag">
+                    <option label="@usuario" value="@usuario"></option>
+                    <option label="@cliente" value="@cliente"></option>
+                </select>
+                <span asp-validation-for="Input.CustomTag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Nombre"></label>
+                <input asp-for="Input.Nombre" class="form-control" />
+                <span asp-validation-for="Input.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Registrar</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h4>Comience a sumar puntos ya!</h4>
+            <hr />
+            <img class="col-icon img-fluid" alt="Registrese en La Encuestadora" src="/img/imagen5.jpeg">
+            
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,37 @@
+﻿@model Encuestadora_Identity2.Models.Pregunta
+
+@{
+    ViewData["Title"] = "Borrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Usted esta seguro de borrar @Html.DisplayFor(model => model.tituloPregunta)? </h4>
+<hr />
+<p>
+    <button title="Mis Preguntas" type="button" onclick="window.open('/Pregunta?EncuestaId=@Model.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+</p>
+<div>
+    <dl class="row">
+        @*<dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.tituloPregunta)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.tituloPregunta)
+            </dd>*@
+        <!--<dt class="col-sm-2">
+            <b>Opciones</b>
+        </dt>
+        <dt class="col-sm-2">-->
+            @*AGREGAR preguntas.count*@
+            <!--Opciones
+        </dt>-->
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="PreguntaId" />
+        <input type="submit" value="Borrar Pregunta" class="btn btn-success" />
+    </form>
+</div>
+@*<div>
+    <a class="btn-link" href="/Pregunta?EncuestaId=@Model.EncuestaId">Volver a Mis Preguntas</a>
+</div>*@

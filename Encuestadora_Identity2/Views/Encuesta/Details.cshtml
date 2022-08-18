@@ -1,0 +1,70 @@
+﻿@model Encuestadora_Identity2.Models.Encuesta
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var darAviso = false;
+}
+
+<h4>@Html.DisplayFor(model => model.tituloEncuesta)</h4>
+<hr />
+<p>
+    <button title="Mis Encuestas" type="button" onclick="window.open('/Encuesta?userName=@User.Identity.Name', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+</p>
+<div>
+    <dl class="row">
+        @*<dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.tituloEncuesta)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.tituloEncuesta)
+            </dd>*@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.datetimeCreacionEncuesta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.datetimeCreacionEncuesta)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.datetimeVencimientoEncuesta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.datetimeVencimientoEncuesta)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.puntosEncuesta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.puntosEncuesta)
+        </dd>
+        <dt class="col-sm-2">
+            Preguntas
+        </dt>
+        <dt class="col-sm-2">
+            @*AGREGAR preguntas.count*@
+            @Model.preguntas.Count
+            @if (Model.preguntas.Count == 0)
+            {
+                darAviso = true;
+            }
+            <button title="Ver Preguntas" type="button" onclick="window.open('/Pregunta?EncuestaId=@Model.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_ver.svg" class="img-fluid" alt="Ver" /></button>
+        </dt>
+    </dl>
+</div>
+@*<div>
+    <a class="btn-link" href="/Encuesta/Edit?id=@Model.EncuestaId&userName=@User.Identity.Name">Editar</a> |
+    <a class="btn-link" href="/Pregunta?EncuestaId=@Model.EncuestaId">Ver Preguntas</a> |
+    <a class="btn-link" href="/Encuesta?userName=@User.Identity.Name">Volver a Mis Encuestas</a>
+</div>*@
+
+<p hidden id="mensaje" class="btn btn-danger text-center col-4 active"></p>
+
+@if (darAviso)
+{
+    <script>
+        var mensaje = document.getElementById('mensaje');
+        mensaje.removeAttribute("hidden");
+        mensaje.innerHTML = "CUIDADO: Encuesta sin preguntas!"
+    </script>
+
+}

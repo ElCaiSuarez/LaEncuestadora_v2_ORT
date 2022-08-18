@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Encuestadora_Identity2.Models.Encuesta>
+
+@{
+    ViewData["Title"] = "Disponibles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-start align-items-center">
+        <div class="col-6 col-sm-6">
+            <h1>Encuestas Disponibles</h1>
+        </div>
+        <div hidden id="mensaje" class="btn btn-danger text-center active"></div>
+    </div>
+</div>
+
+<p>
+    <button title="Ir al Perfil" type="button" onclick="window.open('/Identity/Account/Manage', '_self');" class="btn btn-light"><img src="/img/icono_perfil.svg" class="img-fluid" alt="Perfil" /></button>
+</p>
+<div class="container-fluid">
+    <section class="row justify-content-start align-items-center">
+        <table class="table-responsive">
+            <thead class="btn btn-success col-12 col-sm-12">
+                <tr class="col-12 col-sm-12" style="display:inline-table">
+                    <th class="col-2 col-sm-2 text-center">
+                        Encuesta
+                    </th>
+                    <th class="col-2  col-sm-2 text-center">
+                        Vencimiento
+                    </th>
+                    <th class="col-2  col-sm-2 text-center">
+                        Preguntas
+                    </th>
+                    <th class="col-2  col-sm-2 text-center">
+                        Tipo
+                    </th>
+                    <th class="col-2  col-sm-2 text-center"></th>
+                </tr>
+            </thead>
+            <tbody class="btn bg-light col-12 col-sm-12">
+                @*RECORRO ENCUESTAS*@
+                @foreach (var item in Model)
+                {
+                    //var encuestaCompleta = true;
+                    //var i = 0;
+                    //var preguntas = item.preguntas.ToList();
+                    ////VALIDO QUE CADA PREGUNTA TENGA OPCIONES
+                    //    while (i < preguntas.Count && encuestaCompleta)
+                    //{
+                    //    if (preguntas[i].opciones.Count <= 0)
+                    //    {
+                    //        encuestaCompleta = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        i++;
+                    //    }
+                    //}
+                    ////SI ESTA COMPLETA MUESTRO LA ENCUESTA
+                    //    if (encuestaCompleta)
+                    //{
+                    <tr class="col-12 col-sm-12" style="display:inline-table">
+                        <td class="col-2 col-sm-2 text-center">
+                            @Html.DisplayFor(modelItem => item.tituloEncuesta)
+                        </td>
+                        <td class="col-2 col-sm-2 text-center">
+                            @Html.DisplayFor(modelItem => item.datetimeVencimientoEncuesta)
+                        </td>
+                        <th class="col-2 col-sm-2 text-center">
+                            @*AGREGAR preguntas.count*@
+                            @item.preguntas.Count
+                        </th>
+                        @if (item.puntosEncuesta == PuntosEncuesta.ENCUESTA_ORO)
+                        {
+                            <td class="col-2 col-sm-2 text-center">
+                                <p class="btn btn-warning btn-sm text-black-50 font-weight-bold active col-2 col-sm-2" style="display:inline"> ORO  </p>
+                            </td>
+                        }
+                        else if (item.puntosEncuesta == PuntosEncuesta.ENCUESTA_PLATA)
+                        {
+                            <td class="col-2 col-sm-2 text-center">
+                                <p class="btn btn-secondary active btn-sm col-2 col-sm-2" style="display:inline">PLATA </p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="col-2 col-sm-2 text-center">
+                                <p class="btn active btn-sm col-2 col-sm-2" style="display:inline">GRATIS</p>
+                            </td>
+                        }
+                        <td class="col-2 col-sm-2 text-center">
+                            <button title="Responder" type="button" onclick="window.open('/EncuestaRespondida/ResponderPreguntas?EncuestaId=@item.EncuestaId', '_self');" class="btn btn-light"><img src="/img/icono_responder.svg" class="img-fluid" alt="Ver" /></button>
+
+                        </td>
+                    </tr>
+                    //}
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
+
+@if (ViewBag.esEncuestaRespondida != null)
+{
+    if (ViewBag.esEncuestaRespondida)
+    {
+        <script>
+            var mensaje = document.getElementById('mensaje');
+            mensaje.removeAttribute("hidden");
+            mensaje.innerHTML = "Encuesta respondida, gracias! "
+        </script>
+
+    }
+}
+

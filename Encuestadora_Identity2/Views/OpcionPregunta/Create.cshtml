@@ -1,0 +1,42 @@
+﻿@model Encuestadora_Identity2.Models.OpcionPregunta
+
+@{
+    ViewData["Title"] = "Crear";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Opcion para @ViewBag.pregunta.tituloPregunta</h4>
+<hr />
+<p>
+    <button title="Mis Opciones" type="button" onclick="window.open('/OpcionPregunta?PreguntaId=@ViewBag.PreguntaId', '_self');" class="btn btn-light"><img src="/img/icono_atras.svg" class="img-fluid" alt="Atras" /></button>
+</p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="tituloOpcion" class="control-label"></label>
+                <input asp-for="tituloOpcion" class="form-control" />
+                <span asp-validation-for="tituloOpcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="Encuesta" class="control-label"></label>
+                    <b>@ViewBag.encuesta.tituloEncuesta</b>*@
+                <input type="hidden" asp-for="Pregunta" class="form-control" value="@ViewBag.pregunta" />
+                <span asp-validation-for="Pregunta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="EncuestaId" class="control-label"></label>*@
+                <input type="hidden" asp-for="PreguntaId" class="form-control" value="@ViewBag.pregunta.PreguntaId" />
+                <span asp-validation-for="PreguntaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear Opcion" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
